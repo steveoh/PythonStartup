@@ -9,12 +9,19 @@ class Cache(object):
         self.names = []
         self.workspace = None
 
+    def set_workspace(self, workspace):
+        self.workspace = workspace
+        self.names = []
+
 if __name__ == '__main__':
     cache = Cache()
     print('Cache loaded from PYTHONSTARTUP')
 
 
 def owner_of(name):
+    if cache.workspace is None:
+        return 'cache.set_workspace(workspace)'
+
     if isinstance(name, basestring):
         name = [name]
 
