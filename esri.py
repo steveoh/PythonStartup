@@ -1,4 +1,5 @@
-
+#!/usr/bin/env python
+# * coding: utf8 *
 import arcpy
 from pprint import PrettyPrinter
 from os.path import join
