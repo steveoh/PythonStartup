@@ -39,10 +39,14 @@ def find(name):
         for dirpath, dirnames, filenames in walk:
             cache.names = filenames
 
-    return [fc for fc in cache.names if fc.split('.')[2] in name]
+    matches = [fc for fc in cache.names if fc.split('.')[2] in name]
 
-if __name__ == '__main__':
-    arcpy.env.overwriteOutput = True
+    data = {}
+    for match in matches:
+        db, owner, name = match.split('.')
+        data.setdefault(owner, []).append(name)
+
+    pprint(data)
 
     pp = PrettyPrinter(indent=2, width=20)
     pprint = pp.pprint
