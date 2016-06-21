@@ -1,9 +1,14 @@
 
 import arcpy
-arcpy.env.overwriteOutput = True
+from pprint import PrettyPrinter
+from os.path import join
+from os.path import dirname
+from os.path import abspath
 
 
 class Cache(object):
+    '''A class to hold stuff
+    '''
     def __init__(self):
         self.names = []
         self.workspace = None
@@ -12,12 +17,15 @@ class Cache(object):
         self.workspace = workspace
         self.names = []
 
-if __name__ == '__main__':
-    cache = Cache()
-    print('Cache loaded from PYTHONSTARTUP')
 
+def find(name):
+    '''find a layer by its name. Helpful when searching through large
+    db.owner.name workspaces. The tables are cached after the first run for speed
+    wins on successive runs.
 
-def owner_of(name):
+    set the workspace with `cache.set_workspace`
+
+    name: [Strings]'''
     if cache.workspace is None:
         return 'cache.set_workspace(workspace)'
 
@@ -31,3 +39,12 @@ def owner_of(name):
             cache.names = filenames
 
     return [fc for fc in cache.names if fc.split('.')[2] in name]
+
+if __name__ == '__main__':
+    arcpy.env.overwriteOutput = True
+
+    pp = PrettyPrinter(indent=2, width=20)
+    pprint = pp.pprint
+
+    cache = Cache()
+    print('Cache loaded from PYTHONSTARTUP')
