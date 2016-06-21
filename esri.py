@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # * coding: utf8 *
-import arcpy
 from pprint import PrettyPrinter
 from os.path import join
 from os.path import dirname
@@ -34,6 +33,7 @@ def find(name):
         name = [name]
 
     if len(cache.names) == 0:
+        import arcpy
         walk = arcpy.da.Walk(cache.workspace, followlinks=True)
 
         for dirpath, dirnames, filenames in walk:
@@ -48,6 +48,7 @@ def find(name):
 
     pprint(data)
 
+if __name__ == '__main__':
     pp = PrettyPrinter(indent=2, width=20)
     pprint = pp.pprint
 
